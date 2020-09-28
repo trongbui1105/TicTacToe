@@ -1,0 +1,239 @@
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-image: linear-gradient(to bottom right, rgb(241, 125, 241), pink);
+}
+
+:root {
+    --cell-size: 200px;
+    --mark-size: calc(var(--cell-size) * .9);
+}
+
+.board {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    justify-items: center;
+    grid-template-columns: repeat(3, auto);
+
+}
+
+.cell {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    background-color: rgb(224, 210, 210);
+}
+
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3) {
+    border-top: none;
+}
+
+.cell:first-child,
+.cell:nth-child(4),
+.cell:nth-child(7) {
+    border-left: none;
+}
+
+.cell:nth-child(3),
+.cell:nth-child(6),
+.cell:last-child {
+    border-right: none;
+}
+
+.cell:nth-child(7),
+.cell:nth-child(8),
+.cell:last-child {
+    border-bottom: none;
+}
+
+
+.cell.x,
+.cell.o {
+    cursor: not-allowed;
+}
+
+.cell.x::before,
+.cell.x::after{
+    background-color: red;
+}
+
+.cell.o::before {
+    background-color: blueviolet;
+}
+
+.board.x .cell:not(.x):not(.o):hover::before,
+.board.x .cell:not(.x):not(.o):hover::after,
+.board.o .cell:not(.x):not(.o):hover::before {
+    background-color: rgb(160, 142, 142);
+}
+
+
+
+.cell.x::before,
+.cell.x::after,
+.board.x .cell:not(.x):not(.o):hover::before,
+.board.x .cell:not(.x):not(.o):hover::after {
+    content: '';
+    width: calc(var(--mark-size) * .12);
+    height: var(--mark-size);
+    /* background-color: black; */
+    position: absolute;
+}
+
+
+.cell.x::before,
+.board.x .cell:not(.x):not(.o):hover::before {
+    transform: rotate(45deg);
+}
+
+.cell.x::after,
+.board.x .cell:not(.x):not(.o):hover::after {
+    transform: rotate(-45deg);
+}
+
+
+.cell.o::before,
+.cell.o::after,
+.board.o .cell:not(.x):not(.o):hover::before,
+.board.o .cell:not(.x):not(.o):hover::after {
+    content: '';
+    border-radius: 50%;
+    position: absolute;
+}
+
+.cell.o::before,
+.board.o .cell:not(.x):not(.o):hover::before {
+    width: var(--mark-size);
+    height: var(--mark-size);
+    /* background-color: black; */
+}
+
+.cell.o::after,
+.board.o .cell:not(.x):not(.o):hover::after {
+    width: calc(var(--mark-size) * .8);
+    height: calc(var(--mark-size) * .8);
+    background: rgb(224, 210, 210);
+}
+
+/* .winning-message button {
+    font-size: 35px;
+    background-color: cyan;
+    outline: none;
+    border: medium;
+    border-radius: 15px;
+    cursor: pointer;
+    padding: .15em .5em;
+    flex-direction: row;
+} */
+
+.winning-message {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .9);
+}
+
+[data-winning-message-text] {
+    color: red;
+    font-size: 100px;
+    position: relative;
+    /* top: 30%;
+    right: 27.5%; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    top: -10%;
+}
+
+
+#restartButton {
+    position: absolute;
+    top: 50%;
+    right: 57%;
+    font-size: 35px;
+    background-color: cyan;
+    outline: none;
+    border: medium;
+    border-radius: 15px;
+    cursor: pointer;
+    padding: .15em .5em;
+}
+
+
+#resetButton {
+    position: absolute;
+    top: 50%;
+    right: 34%;
+    font-size: 35px;
+    color: white;
+    background-color: rgb(109, 109, 230);
+    justify-content: right;
+    outline: none;
+    border: medium;
+    border-radius: 15px;
+    cursor: pointer;
+    padding: .15em .5em;   
+}
+
+
+#restartButton:hover {
+    background-color: blueviolet;
+    color: whitesmoke;
+}
+
+#resetButton:hover {
+    background-color: whitesmoke;
+    color: blue;
+}
+
+.winning-message.show {
+    display: flex;
+}
+
+.playerX {
+    color: black;
+    position: absolute;
+    padding: 105px 0 0 130px;
+    font-size: 50px;
+}
+
+#xScore {
+    font-size: 180px;
+    padding-top: 20px;
+    position: relative;
+    text-align: center;
+    color: rgb(179, 255, 0);
+}
+
+.playerO {
+    font-size: 50px;
+    position: absolute;
+    padding: 105px 0 0 calc(100vw - 300px);
+}
+
+#oScore {
+    font-size: 180px;
+    padding-top: 20px;
+    position: relative;
+    text-align: center;
+    color: blue;
+    /* color: rgb(179, 255, 0); */
+}
